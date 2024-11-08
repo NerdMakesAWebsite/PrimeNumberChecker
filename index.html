@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prime Number Detector</title>
+    <style>
+        /* Importing a cyber-style font */
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+        /* General Styling */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #0d0d0d;
+            color: #33ff33;
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .container {
+            text-align: center;
+            width: 350px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #1a1a1a;
+            box-shadow: 0px 0px 20px rgba(0, 255, 0, 0.6);
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #33ff33;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #0d0d0d;
+            color: #33ff33;
+            text-align: center;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            box-shadow: 0 0 10px #00ff00;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #0d0d0d;
+            background-color: #33ff33;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            box-shadow: 0 0 10px #33ff33;
+        }
+
+        button:hover {
+            background-color: #00cc00;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 20px;
+            opacity: 0;
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        .message.visible {
+            opacity: 1;
+            transform: translateY(10px);
+        }
+
+        .message.prime {
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        .message.not-prime {
+            color: #ff3300;
+            text-shadow: 0 0 10px #ff3300;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Prime Number Detector</h1>
+    <input type="text" id="numberInput" placeholder="Enter a number" oninput="validateInput(this)">
+    <button onclick="checkPrime()">Check</button>
+    <div id="resultMessage" class="message"></div>
+</div>
+
+<script>
+    // Validate input to allow only numbers
+    function validateInput(input) {
+        input.value = input.value.replace(/[^0-9]/g, '');
+    }
+
+    // Function to check if the number is prime
+    function checkPrime() {
+        const input = document.getElementById("numberInput").value;
+        const resultMessage = document.getElementById("resultMessage");
+
+        // Reset the message display
+        resultMessage.textContent = '';
+        resultMessage.className = 'message';
+
+        if (input === '') {
+            showMessage("Please enter a number!", "not-prime");
+            return;
+        }
+
+        const number = BigInt(input); // Handle large numbers with BigInt
+        if (number < 2n) {
+            showMessage(`${number} is not a prime number`, "not-prime");
+            return;
+        }
+
+        let isPrime = true;
+        for (let i = 2n; i * i <= number; i++) {
+            if (number % i === 0n) {
+                isPrime = false;
+                break;
+            }
+        }
+
+        if (isPrime) {
+            showMessage(`${number} is a prime number! 🎉`, "prime");
+        } else {
+            showMessage(`${number} is not a prime number`, "not-prime");
+        }
+    }
+
+    // Variable to hold the timeout ID for managing message display duration
+    let messageTimeout;
+
+    // Function to display the result message with animations
+    function showMessage(message, type) {
+        const resultMessage = document.getElementById("resultMessage");
+
+        // Clear any previous timeout to reset the display timer
+        clearTimeout(messageTimeout);
+    
+        // Clear previous message by removing visible class
+        resultMessage.classList.remove("visible");
+
+        // Brief delay to ensure removal of previous message
+        setTimeout(() => {
+            resultMessage.textContent = message;
+            resultMessage.className = `message visible ${type}`;
+
+            // Set a new timeout to hide the message after 3 seconds
+            messageTimeout = setTimeout(() => {
+                resultMessage.classList.remove("visible");
+            }, 3000);
+        }, 10); // Short delay to allow the class removal effect
+    }
+</script>
+
+</body>
+</html>
