@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prime Number Detector</title>
+    <title>Prime Number Checker</title>
+	
+	<!-- Favicon (Tab Image) -->
+	<link rel="icon" type="image/png" href="NLC Profile.png">
+	
     <style>
         /* Importing a cyber-style font */
         @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
@@ -96,7 +100,7 @@
 <body>
 
 <div class="container">
-    <h1>Prime Number Detector</h1>
+    <h1>Prime Number Checker</h1>
     <input type="text" id="numberInput" placeholder="Enter a number" oninput="validateInput(this)">
     <button onclick="checkPrime()">Check</button>
     <div id="resultMessage" class="message"></div>
@@ -124,7 +128,7 @@
 
         const number = BigInt(input); // Handle large numbers with BigInt
         if (number < 2n) {
-            showMessage(`${number} is not a prime number`, "not-prime");
+            showMessage(`${number} isn't a prime number ❌`, "not-prime");
             return;
         }
 
@@ -139,7 +143,7 @@
         if (isPrime) {
             showMessage(`${number} is a prime number! 🎉`, "prime");
         } else {
-            showMessage(`${number} is not a prime number`, "not-prime");
+            showMessage(`${number} isn't a prime number! ❌`, "not-prime");
         }
     }
 
