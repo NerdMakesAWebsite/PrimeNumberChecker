@@ -14,14 +14,15 @@
 
         /* General Styling */
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #0d0d0d;
-            color: #33ff33;
-            font-family: 'Share Tech Mono', monospace;
+        font-family: 'Share Tech Mono', monospace;
+        background-color: #0d0d0d;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        color: #00ff00;
         }
 
         .container {
@@ -39,7 +40,14 @@
             margin-bottom: 20px;
             text-shadow: 0 0 10px #00ff00;
         }
-
+		
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #00ff00;
+            font-size: 14px;
+        }
+		
         input[type="text"] {
             width: 80%;
             padding: 10px;
@@ -105,6 +113,10 @@
     <button onclick="checkPrime()">Check</button>
     <div id="resultMessage" class="message"></div>
 </div>
+
+<footer>
+    <p>&copy; 2025 NerdJoe. All rights reserved.</p>
+</footer>
 
 <script>
     // Validate input to allow only numbers
